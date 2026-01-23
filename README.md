@@ -14,16 +14,16 @@ Created by **amazingb01 (Adiru)**.
     * **Standby List**: Removes cached files that cause micro-stutters.
     * **Modified Page List**: Flushes pages waiting to be written to disk.
     * **Priority 0 Standby List**: Cleans the lowest priority memory pages.
-* **SYSTEM-Level Execution**: Automatically deploys a Windows Task Scheduler task (`AmazingMemCleaner`) to run with **SYSTEM (S-1-5-18)** privileges. This bypasses typical "Access Denied" errors (0xC0000061) when clearing system-protected memory.
+* **SYSTEM-Level Execution**: Automatically deploys a Windows Task Scheduler task (`AmazingMemCleaner`) to run with **SYSTEM (S-1-5-18)** privileges. This bypasses typical "Access Denied" errors when clearing system-protected memory.
 * **Working Set Reduction**: Iterates through all active processes and uses `psapi.dll` (`EmptyWorkingSet`) to reclaim physical RAM occupied by non-critical applications.
-* **Smart Automation Logic**:
+* **Smart Automation & Logging**:
     * **RAM Threshold Trigger**: Monitors RAM usage via `PerformanceCounter` and triggers cleaning if usage exceeds your set limit (e.g., 90%).
-    * **Dynamic Interval**: Supports periodic cleaning based on a user-defined timer (in minutes).
+    * **Rolling Logs**: Maintains a real-time `cleaner.log` with a strict **50-line limit** to prevent disk bloating while keeping you informed.
 * **Advanced Privilege Escalation**: Specifically activates `SeProfileSingleProcessPrivilege`, `SeIncreaseQuotaPrivilege`, and `SeDebugPrivilege` within the process token for deep system access.
 * **Persistence & Stealth**:
-    * **Registry-Based Settings**: Saves all configurations (threshold, interval, enabled modes, language) in `HKEY_LOCAL_MACHINE\SOFTWARE\AmazeMem`.
+    * **Registry-Based Settings**: Saves all configurations in `HKEY_LOCAL_MACHINE\SOFTWARE\AmazeMem`.
     * **Auto-Installation**: Copies itself to `C:\Program Files\AmazeMem` and sets up auto-start with highest privileges.
-    * **Tray Integration**: Runs in the background with a system tray icon and double-click to restore.
+    * **Tray Integration**: Runs in the background with a system tray icon.
 
 ## 🛠 Cleaning Modes Detailed
 
@@ -32,15 +32,18 @@ Created by **amazingb01 (Adiru)**.
 | **Working Sets** | Flushes the private working set of every accessible process. |
 | **Standby List** | Uses `MemoryPurgeStandbyList` (Command 4) via `NtSetSystemInformation`. |
 | **Modified List** | Uses `MemoryFlushModifiedList` (Command 3) via `NtSetSystemInformation`. |
-| **Priority 0** | Uses `MemoryPurgeLowPriorityStandbyList` (Command 5) to free up high-speed RAM. |
+| **Priority 0** | Uses Command 3/5 logic to free up high-speed RAM. |
+
+## 📦 Technical Info
+* **Language**: C# 
+* **Framework**: .NET Framework 4.8 (Legacy `csc.exe` compatible)
+* **Privileges Required**: Administrator (for setup) / SYSTEM (for cleaning)
 
 ---
-*Optimized for minimal Latency. Compiled with .NET Framework 4.8.*
+*Optimized for minimal Latency. Created by amazingb01.*
 
 ## 🔗 Connect with me
 
 [![YouTube](https://img.shields.io/badge/YouTube-@adiruaim-FF0000?style=for-the-badge&logo=youtube)](https://www.youtube.com/@adiruaim)
 [![TikTok](https://img.shields.io/badge/TikTok-@adiruhs-000000?style=for-the-badge&logo=tiktok)](https://www.tiktok.com/@adiruhs)
 [![Donatello](https://img.shields.io/badge/Support-Donatello-orange?style=for-the-badge)](https://donatello.to/Adiru3)
-
----
