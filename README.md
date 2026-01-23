@@ -34,9 +34,6 @@ Created by **amazingb01 (Adiru)**.
 | **Modified List** | Uses `MemoryFlushModifiedList` (Command 3) via `NtSetSystemInformation`. |
 | **Priority 0** | Uses `MemoryPurgeLowPriorityStandbyList` (Command 5) to free up high-speed RAM. |
 
-## 📊 Logging & Monitoring
-The application features a built-in real-time console that parses `cleaner.log`. It provides detailed timestamps including the date and day of the week, allowing you to track exactly when memory was cleared during your gaming sessions.
-
 ---
 *Optimized for minimal Latency. Compiled with .NET Framework 4.8.*
 
