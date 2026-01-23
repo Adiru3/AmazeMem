@@ -37,6 +37,18 @@ A high-performance, lightweight system utility designed for competitive gamers a
 * **Framework**: .NET Framework 4.8 (Legacy `csc.exe` compatible)
 * **Privileges Required**: Administrator (for setup) / SYSTEM (for cleaning)
 
+## 🎯 Who needs AmazeMem? (Checklist)
+
+If at least one of these points describes your situation, you will notice the difference immediately:
+
+* **Users with 8GB or 16GB RAM**: If your memory is constantly bloated by browsers, Discord, and system cache, your games lack the "clean" space required to operate. This often forces Windows into **Disk Swapping** (Pagefile usage), which is significantly slower than physical RAM.
+* **Competitive FPS Players (CS2, Valorant, Quake, Apex)**: For those who demand the absolute minimum **Input Lag**. Kernel-level Standby List purging eliminates the delay between your mouse movement and the on-screen reaction.
+* **Victims of "Micro-stutters"**: If your FPS counter is high but the image feels "choppy" or hitches during fast 180-degree turns, you are likely experiencing a conflict between the game engine and the Windows cache.
+* **Low-to-Mid End PC Owners**: When every megabyte counts, the automatic reduction of **Working Sets** for background apps frees up vital physical resources for your primary game process.
+* **Users who rarely Reboot**: Over time, Windows accumulates "junk" in the **Modified Page List** that isn't cleared automatically. AmazeMem forces this cleanup, restoring system snappiness without a restart.
+* **Streamers & Multitaskers**: If you play with OBS, browsers with 20+ tabs, and music apps open, AmazeMem keeps their "appetite" in check. It prevents background software from "eating up" the high-priority memory your game needs.
+* **Optimization Perfectionists**: If you have already tuned your Windows, BIOS, and Network, but the system still feels "floaty," AmazeMem solves the final piece of the puzzle through **SYSTEM-level** memory management.
+
 ---
 *Optimized for minimal Latency. Created by amazingb01 (Adiru).*
 
