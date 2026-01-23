@@ -2,7 +2,7 @@
 
 A high-performance, lightweight system utility designed for competitive gamers and power users to minimize input lag and eliminate system stutters by managing Windows memory lists at a kernel level.
 
-<img width="435" height="471" alt="image" src="https://github.com/user-attachments/assets/a3db6a47-446f-44f2-b85d-a0c6b5d2fcbc" />
+<img width="424" height="465" alt="image" src="https://github.com/user-attachments/assets/6f06878b-d722-438d-8ffc-3c698582529d" />
 
 Created by **amazingb01 (Adiru)**.
 
