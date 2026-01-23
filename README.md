@@ -4,7 +4,7 @@ A high-performance, lightweight system utility designed for competitive gamers a
 
 <img width="435" height="471" alt="image" src="https://github.com/user-attachments/assets/a3db6a47-446f-44f2-b85d-a0c6b5d2fcbc" />
 
-Created by **amazingb01**.
+Created by **amazingb01 (Adiru)**.
 
 ## 🚀 Key Features
 
