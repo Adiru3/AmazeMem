@@ -32,11 +32,6 @@ A high-performance, lightweight system utility designed for competitive gamers a
 | **Modified List** | Uses `MemoryFlushModifiedList` (Command 3) via `NtSetSystemInformation`. |
 | **Priority 0** | Uses Command 3/5 logic to free up high-speed RAM. |
 
-## 📦 Technical Info
-* **Language**: C# 
-* **Framework**: .NET Framework 4.8 (Legacy `csc.exe` compatible)
-* **Privileges Required**: Administrator (for setup) / SYSTEM (for cleaning)
-
 ## 🎯 Who needs AmazeMem? (Checklist)
 
 If at least one of these points describes your situation, you will notice the difference immediately:
@@ -48,6 +43,11 @@ If at least one of these points describes your situation, you will notice the di
 * **Users who rarely Reboot**: Over time, Windows accumulates "junk" in the **Modified Page List** that isn't cleared automatically. AmazeMem forces this cleanup, restoring system snappiness without a restart.
 * **Streamers & Multitaskers**: If you play with OBS, browsers with 20+ tabs, and music apps open, AmazeMem keeps their "appetite" in check. It prevents background software from "eating up" the high-priority memory your game needs.
 * **Optimization Perfectionists**: If you have already tuned your Windows, BIOS, and Network, but the system still feels "floaty," AmazeMem solves the final piece of the puzzle through **SYSTEM-level** memory management.
+
+## 📦 Technical Info
+* **Language**: C# 
+* **Framework**: .NET Framework 4.8 (Legacy `csc.exe` compatible)
+* **Privileges Required**: Administrator (for setup) / SYSTEM (for cleaning)
 
 ---
 *Optimized for minimal Latency. Created by amazingb01 (Adiru).*
