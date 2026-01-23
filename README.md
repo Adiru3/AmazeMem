@@ -6,8 +6,6 @@ A high-performance, lightweight system utility designed for competitive gamers a
 
 <img width="839" height="75" alt="image" src="https://github.com/user-attachments/assets/6ff436e2-01b8-4ef6-a5ba-073261e3bf59" />
 
-Created by **amazingb01 (Adiru)**.
-
 ## 🚀 Key Features (Based on Source Code)
 
 * **Kernel-Level Memory Purge**: Directly interfaces with `ntdll.dll` using `NtSetSystemInformation` to clear:
@@ -40,7 +38,7 @@ Created by **amazingb01 (Adiru)**.
 * **Privileges Required**: Administrator (for setup) / SYSTEM (for cleaning)
 
 ---
-*Optimized for minimal Latency. Created by amazingb01.*
+*Optimized for minimal Latency. Created by amazingb01 (Adiru).*
 
 ## 🔗 Connect with me
 
