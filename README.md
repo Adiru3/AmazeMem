@@ -10,15 +10,15 @@ Created by **amazingb01 (Adiru)**.
 
 ## 🚀 Key Features
 
-- **Kernel-Level Memory Purge**: Uses `ntdll.dll` system calls (the same method used by professional tools) to clear Standby Lists, Modified Page Lists, and Priority 0 memory.
-- **Working Set Reduction**: Instantly flushes the memory working sets of all running processes to free up physical RAM.
-- **Smart Automation**: 
-  - **RAM Threshold**: Set a percentage (e.g., 90%) - the app only cleans when memory usage exceeds this limit.
-  - **Dynamic Timer**: Set an interval in minutes for periodic checks.
-- **Stealth Mode**: Minimizes to the System Tray with double-click restoration.
-- **Auto-Installation**: Automatically creates a secure folder in `AppData/Roaming/Amazing Folder` and adds itself to Windows Startup.
-- **Multi-Language Support**: Fully localized interface for English, Russian (Русский), Ukrainian (Українська), and Turkish (Türkçe).
-- **Persistent Settings**: All your preferences (threshold, interval, selected cleaning modes) are saved in the Windows Registry and persist after reboot.
+* **Kernel-Level Memory Purge**: Uses `ntdll.dll` system calls to clear Standby Lists, Modified Page Lists, and Priority 0 memory.
+* **Working Set Reduction**: Instantly flushes the memory working sets of all running processes to free up physical RAM.
+* **Smart Automation**:
+    * **RAM Threshold**: Set a percentage (e.g., 90%) — the app only cleans when memory usage exceeds this limit.
+    * **Dynamic Timer**: Set an interval in minutes for periodic checks.
+* **Stealth Mode**: Minimizes to the System Tray with double-click restoration.
+* **Auto-Installation**: Automatically creates a secure folder in `AppData/Roaming/Amazing Folder` and adds itself to Windows Startup.
+* **Multi-Language Support**: Fully localized interface for English, Russian (Русский), Ukrainian (Українська), and Turkish (Türkçe).
+* **Persistent Settings**: All your preferences (threshold, interval, selected cleaning modes) are saved in the Windows Registry and persist after reboot.
 
 ## 🛠 Cleaning Modes Explained
 
