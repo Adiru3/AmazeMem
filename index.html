@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AmazeMem | Kernel Memory Optimizer</title>
+    <style>
+        :root {
+            --xp-blue: #0058e6;
+            --xp-orange: #ff8e00;
+            --terminal-green: #00ff41;
+            --bg-dark: #0a0a0a;
+            --win-gray: #ece9d8;
+        }
+
+        body {
+            background-color: #003399;
+            background-image: radial-gradient(circle, #004dc9 0%, #003399 100%);
+            font-family: "Lucida Console", Monaco, monospace;
+            color: var(--terminal-green);
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        /* Language Switcher */
+        .lang-switch {
+            background: var(--win-gray);
+            border: 2px solid var(--xp-blue);
+            padding: 5px;
+            margin-bottom: 15px;
+            display: flex;
+            gap: 10px;
+            border-radius: 4px;
+            box-shadow: 4px 4px 0px #000;
+        }
+
+        .lang-btn {
+            background: #f0f0f0;
+            border: 1px solid #777;
+            padding: 3px 8px;
+            cursor: pointer;
+            font-size: 12px;
+            font-weight: bold;
+        }
+
+        .lang-btn.active {
+            background: var(--xp-blue);
+            color: white;
+            border-color: #fff;
+        }
+
+        .window {
+            width: 100%;
+            max-width: 1000px;
+            background: var(--win-gray);
+            border: 3px solid var(--xp-blue);
+            border-top-left-radius: 8px;
+            border-top-right-radius: 8px;
+            box-shadow: 15px 15px 40px rgba(0,0,0,0.6);
+            overflow: hidden;
+        }
+
+        .title-bar {
+            background: linear-gradient(to bottom, #0058e6 0%, #2976fa 100%);
+            padding: 6px 12px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: white;
+            font-weight: bold;
+            text-shadow: 1px 1px #000;
+        }
+
+        .terminal-content {
+            background: var(--bg-dark);
+            padding: 30px;
+            border: 4px solid #d4d0c8;
+            margin: 10px;
+            position: relative;
+            max-height: 85vh;
+            overflow-y: auto;
+        }
+
+        /* CRT Screen Effect */
+        .terminal-content::after {
+            content: " ";
+            display: block;
+            position: absolute;
+            top: 0; left: 0; bottom: 0; right: 0;
+            background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.1) 50%), 
+                        linear-gradient(90deg, rgba(255, 0, 0, 0.03), rgba(0, 255, 0, 0.01), rgba(0, 255, 0, 0.03));
+            z-index: 10;
+            background-size: 100% 3px, 3px 100%;
+            pointer-events: none;
+        }
+
+        h1, h2, h3 { color: #fff; text-transform: uppercase; border-bottom: 1px solid var(--terminal-green); }
+        .highlight { color: var(--xp-orange); }
+
+        .image-container { text-align: center; margin: 20px 0; }
+        .image-container img { 
+            max-width: 100%; 
+            border: 2px solid var(--terminal-green); 
+            filter: sepia(20%) contrast(120%);
+        }
+
+        .cta-box {
+            text-align: center;
+            padding: 30px;
+            border: 2px dashed var(--terminal-green);
+            margin: 20px 0;
+            background: rgba(0, 255, 65, 0.05);
+        }
+
+        .btn-main {
+            background: var(--xp-orange);
+            color: white !important;
+            padding: 20px 40px;
+            text-decoration: none;
+            font-size: 1.5em;
+            border: 4px solid #fff;
+            box-shadow: 6px 6px 0px #000;
+            display: inline-block;
+            margin-bottom: 10px;
+        }
+
+        .btn-main:active { transform: translate(3px, 3px); box-shadow: 2px 2px 0px #000; }
+
+        table { width: 100%; border-collapse: collapse; margin: 20px 0; background: rgba(0,0,0,0.5); }
+        th, td { border: 1px solid var(--terminal-green); padding: 12px; text-align: left; font-size: 14px; }
+        th { background: rgba(0, 255, 65, 0.2); }
+
+        .feature-list { list-style: none; padding: 0; }
+        .feature-list li::before { content: "[OK] "; color: var(--xp-orange); }
+
+        .checklist li::before { content: "► "; color: #fff; }
+
+        .social-links { display: flex; justify-content: center; gap: 15px; margin-top: 20px; flex-wrap: wrap; }
+        .social-links a img { height: 35px; border: none; }
+
+        ::-webkit-scrollbar { width: 10px; }
+        ::-webkit-scrollbar-track { background: #000; }
+        ::-webkit-scrollbar-thumb { background: var(--xp-blue); border: 1px solid #fff; }
+    </style>
+</head>
+<body>
+
+<div class="lang-switch">
+    <button class="lang-btn active" onclick="setLang('en')">EN</button>
+    <button class="lang-btn" onclick="setLang('ru')">RU</button>
+    <button class="lang-btn" onclick="setLang('ua')">UA</button>
+    <button class="lang-btn" onclick="setLang('tr')">TR</button>
+</div>
+
+<div class="window">
+    <div class="title-bar">
+        <span>AmazeMem_Kernel_Control_Center.v2.5</span>
+        <div style="display:flex; gap:3px;">
+            <div style="width:18px;height:18px;background:#ccc;border:1px solid #fff;text-align:center;color:#000;line-height:14px;cursor:pointer">_</div>
+            <div style="width:18px;height:18px;background:#e33e10;border:1px solid #fff;text-align:center;color:#fff;line-height:14px;cursor:pointer">X</div>
+        </div>
+    </div>
+
+    <div class="terminal-content">
+        <h1 id="main-title">AmazeMem</h1>
+        <p id="main-desc">High-performance system utility for competitive gamers to minimize input lag and eliminate stutters.</p>
+
+        <div class="image-container">
+            <img src="https://github.com/user-attachments/assets/6f06878b-d722-438d-8ffc-3c698582529d" alt="AmazeMem UI">
+        </div>
+
+        <div class="cta-box">
+            <a href="https://github.com/Adiru3/AmazeMem/releases/download/V2.5/AmazeMem.exe" class="btn-main" id="btn-dl">DOWNLOAD NOW</a><br>
+            <a href="https://github.com/Adiru3/AmazeMem" style="color:var(--terminal-green)" id="lnk-repo">> View on GitHub</a>
+        </div>
+
+        <h2 id="head-features">🚀 Key Features</h2>
+        <ul class="feature-list" id="list-features">
+            </ul>
+
+        <h2 id="head-modes">🛠 Cleaning Modes</h2>
+        <table id="table-modes">
+            </table>
+
+        <h2 id="head-who">🎯 Who needs AmazeMem?</h2>
+        <ul class="checklist" id="list-who">
+            </ul>
+
+        <h2 id="head-tech">📦 Technical Info</h2>
+        <div id="tech-info">
+            </div>
+
+        <hr style="border: 1px dashed var(--terminal-green); margin: 30px 0;">
+        
+        <div style="text-align: center;">
+            <p id="footer-text">Optimized for minimal Latency. Created by amazingb01 (Adiru).</p>
+            <div class="social-links">
+                <a href="https://www.youtube.com/@adiruaim"><img src="https://img.shields.io/badge/YouTube-@adiruaim-FF0000?style=for-the-badge&logo=youtube" alt="YT"></a>
+                <a href="https://www.tiktok.com/@adiruhs"><img src="https://img.shields.io/badge/TikTok-@adiruhs-000000?style=for-the-badge&logo=tiktok" alt="TT"></a>
+                <a href="https://donatello.to/Adiru3"><img src="https://img.shields.io/badge/Support-Donatello-orange?style=for-the-badge" alt="Donate"></a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+const translations = {
+    en: {
+        desc: "A high-performance, lightweight system utility designed for competitive gamers and power users to minimize input lag and eliminate system stutters by managing Windows memory lists at a kernel level.",
+        btn: "DOWNLOAD AMAZEMEM.EXE",
+        features: "Key Features (Source Based)",
+        fItems: [
+            "Kernel-Level Memory Purge: Interfaces with ntdll.dll (Standby, Modified, Priority 0 lists).",
+            "SYSTEM-Level Execution: Runs with S-1-5-18 privileges via Task Scheduler.",
+            "Working Set Reduction: Reclaims physical RAM via psapi.dll (EmptyWorkingSet).",
+            "Smart Automation: Threshold triggers (e.g., 90% RAM) and 50-line rolling logs.",
+            "Advanced Privileges: Activates SeDebugPrivilege and SeIncreaseQuotaPrivilege."
+        ],
+        modes: "Cleaning Modes",
+        mTable: `<tr><th>Mode</th><th>Technical Implementation</th></tr>
+                 <tr><td>Working Sets</td><td>Flushes private working set of all processes</td></tr>
+                 <tr><td>Standby List</td><td>MemoryPurgeStandbyList (Command 4)</td></tr>
+                 <tr><td>Modified List</td><td>MemoryFlushModifiedList (Command 3)</td></tr>`,
+        who: "Who needs AmazeMem?",
+        wItems: [
+            "Users with 8GB/16GB RAM: Prevent Disk Swapping (Pagefile).",
+            "Competitive FPS Players: Minimum Input Lag for CS2, Valorant, Quake.",
+            "Micro-stutter Victims: Fix choppiness during fast turns.",
+            "Optimization Perfectionists: The final piece of the OS tuning puzzle."
+        ],
+        tech: "Technical Info",
+        tInfo: "Language: C# | Framework: .NET 4.8 | Rights: SYSTEM / Admin"
+    },
+    ru: {
+        desc: "Высокопроизводительная системная утилита для про-геймеров. Минимизирует задержку ввода и устраняет статтеры через управление памятью на уровне ядра.",
+        btn: "СКАЧАТЬ AMAZEMEM.EXE",
+        features: "Ключевые особенности",
+        fItems: [
+            "Kernel Purge: Прямая очистка Standby и Modified списков через ntdll.dll.",
+            "SYSTEM-права: Работает от имени системы (S-1-5-18), обходя ограничения доступа.",
+            "Working Set: Очистка физической RAM всех процессов через psapi.dll.",
+            "Автоматизация: Очистка по порогу (например, 90% RAM) и умные логи.",
+            "Привилегии: Активация SeDebugPrivilege для глубокого доступа к ядру."
+        ],
+        modes: "Режимы очистки",
+        mTable: `<tr><th>Режим</th><th>Техническая реализация</th></tr>
+                 <tr><td>Working Sets</td><td>Сброс рабочих наборов всех процессов</td></tr>
+                 <tr><td>Standby List</td><td>Очистка кэша файлов (Команда 4)</td></tr>
+                 <tr><td>Modified List</td><td>Сброс модифицированных страниц (Команда 3)</td></tr>`,
+        who: "Кому нужен AmazeMem?",
+        wItems: [
+            "Игроки с 8ГБ/16ГБ ОЗУ: Забудьте про тормоза из-за файла подкачки.",
+            "FPS Геймеры: Минимальный инпут-лаг в CS2, Valorant, Apex.",
+            "Жертвы микро-фризов: Устранение рывков при резких поворотах.",
+            "Перфекционисты: Финальный этап настройки Windows."
+        ],
+        tech: "Тех. информация",
+        tInfo: "Язык: C# | Framework: .NET 4.8 | Права: SYSTEM / Admin"
+    },
+    ua: {
+        desc: "Високопродуктивна системна утиліта для про-геймерів. Мінімізує затримку вводу та усуває статтери через керування пам'яттю на рівні ядра.",
+        btn: "ЗАВАНТАЖИТИ AMAZEMEM.EXE",
+        features: "Ключові особливості",
+        fItems: [
+            "Kernel Purge: Пряме очищення Standby та Modified списків через ntdll.dll.",
+            "SYSTEM-права: Працює від імені системи (S-1-5-18).",
+            "Working Set: Очищення фізичної RAM усіх процесів через psapi.dll.",
+            "Автоматизація: Робота за лімітом RAM та розумні логи.",
+            "Привілеї: Активація SeDebugPrivilege для доступу до ядра."
+        ],
+        modes: "Режими очищення",
+        mTable: `<tr><th>Режим</th><th>Технічна реалізація</th></tr>
+                 <tr><td>Working Sets</td><td>Скидання робочих наборів усіх процесів</td></tr>
+                 <tr><td>Standby List</td><td>Очищення кешу файлів (Команда 4)</td></tr>
+                 <tr><td>Modified List</td><td>Скидання модифікованих сторінок (Команда 3)</td></tr>`,
+        who: "Кому потрібен AmazeMem?",
+        wItems: [
+            "Гравці з 8ГБ/16ГБ ОЗП: Усунення затримок файлу підкачки.",
+            "FPS Геймери: Мінімальний інпут-лаг у CS2, Valorant, Quake.",
+            "Жертви мікро-фризів: Виправлення ривків зображення.",
+            "Перфекціоністи: Фінальний етап оптимізації Windows."
+        ],
+        tech: "Тех. інформація",
+        tInfo: "Мова: C# | Framework: .NET 4.8 | Права: SYSTEM / Admin"
+    },
+    tr: {
+        desc: "Rekabetçi oyuncular için yüksek performanslı sistem aracı. Çekirdek düzeyinde bellek yönetimi ile giriş gecikmesini (input lag) en aza indirir.",
+        btn: "AMAZEMEM.EXE İNDİR",
+        features: "Temel Özellikler",
+        fItems: [
+            "Çekirdek Düzeyinde Temizlik: ntdll.dll üzerinden Standby ve Modified listelerini temizler.",
+            "SYSTEM Yetkileri: Görev Zamanlayıcı aracılığıyla S-1-5-18 yetkileriyle çalışır.",
+            "Çalışma Kümesi Azaltma: psapi.dll kullanarak fiziksel RAM'i geri kazanır.",
+            "Akıllı Otomasyon: RAM eşiği tetikleyicileri (örneğin %90) ve günlük kaydı.",
+            "Gelişmiş Yetkiler: SeDebugPrivilege ve SeIncreaseQuotaPrivilege aktiftir."
+        ],
+        modes: "Temizlik Modları",
+        mTable: `<tr><th>Mod</th><th>Teknik Uygulama</th></tr>
+                 <tr><td>Working Sets</td><td>Tüm süreçlerin özel çalışma kümelerini temizler</td></tr>
+                 <tr><td>Standby List</td><td>MemoryPurgeStandbyList (Komut 4)</td></tr>
+                 <tr><td>Modified List</td><td>MemoryFlushModifiedList (Komut 3)</td></tr>`,
+        who: "AmazeMem kime lazım?",
+        wItems: [
+            "8GB/16GB RAM sahipleri: Disk Takas Dosyası (Pagefile) kullanımını önler.",
+            "FPS Oyuncuları: CS2, Valorant, Quake için minimum giriş gecikmesi.",
+            "Anlık Takılma Yaşayanlar: Hızlı dönüşlerdeki mikro takılmaları giderir.",
+            "Optimizasyon Meraklıları: Windows ayarlarının son parçası."
+        ],
+        tech: "Teknik Bilgi",
+        tInfo: "Dil: C# | Framework: .NET 4.8 | Yetki: SYSTEM / Admin"
+    }
+};
+
+function setLang(lang) {
+    const data = translations[lang];
+    document.getElementById('main-desc').innerText = data.desc;
+    document.getElementById('btn-dl').innerText = data.btn;
+    document.getElementById('head-features').innerText = "🚀 " + data.features;
+    document.getElementById('head-modes').innerText = "🛠 " + data.modes;
+    document.getElementById('head-who').innerText = "🎯 " + data.who;
+    document.getElementById('head-tech').innerText = "📦 " + data.tech;
+    document.getElementById('tech-info').innerText = data.tInfo;
+    
+    // Update Lists
+    document.getElementById('list-features').innerHTML = data.fItems.map(i => `<li>${i}</li>`).join('');
+    document.getElementById('list-who').innerHTML = data.wItems.map(i => `<li>${i}</li>`).join('');
+    document.getElementById('table-modes').innerHTML = data.mTable;
+
+    // Update Button Active State
+    document.querySelectorAll('.lang-btn').forEach(btn => {
+        btn.classList.toggle('active', btn.innerText.toLowerCase() === lang);
+    });
+}
+
+// Init default
+setLang('en');
+</script>
+
+</body>
+</html>
