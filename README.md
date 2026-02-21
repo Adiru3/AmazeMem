@@ -1,12 +1,21 @@
-# AmazeMem
+# AmazeMem v3.0 - The Ultimate Memory Optimizer 🚀
 
-A high-performance, lightweight system utility designed for competitive gamers and power users to minimize input lag and eliminate system stutters by managing Windows memory lists at a kernel level.
+A high-performance, lightweight system utility designed for competitive gamers and power users to minimize input lag and eliminate system stutters by managing Windows memory lists at a kernel level. 
+
+**Now featuring classic Winamp & ICQ Simulation Themes with native audio playback!**
 
 <img width="547" height="379" alt="image" src="https://github.com/user-attachments/assets/406b356b-a6df-47e8-b889-60c09966e4bf" />
 
 <img width="839" height="75" alt="image" src="https://github.com/user-attachments/assets/6ff436e2-01b8-4ef6-a5ba-073261e3bf59" />
 
-## 🚀 Key Features (Based on Source Code)
+## ✨ What's New in V3.0? (The Nostalgia Update)
+* **Classic Winamp Theme**: A fully functional, GDI+ rendered replica of the legendary Winamp player. It acts as your memory cleaner hub!
+* **Native MP3 Playback**: The Winamp theme features an interactive playlist, scrolling marquee, functional EQ bars, and native looping `mciSendString` MP3 playback!
+* **ICQ Messenger Theme**: Experience 2000s internet nostalgia. This theme disguises your memory cleaning settings as an ICQ contact list, complete with the iconic 'Uh-Oh!' sound effect triggered upon system cleaning!
+* **Zero Dependencies**: All audio files (`AmazeMemWinampTheme.mp3`, `icq.mp3`) are dynamically embedded into the single `AmazeMem.exe` footprint.
+* **Flawless UI Integration**: All performance settings (Auto-RAM, Intervals, Clear Lists) dynamically adapt to blend identically into either the Windows XP, Winamp, or ICQ aesthetic.
+
+## 🚀 Key Features (Under the Hood)
 
 * **Kernel-Level Memory Purge**: Directly interfaces with `ntdll.dll` using `NtSetSystemInformation` to clear:
     * **Standby List**: Removes cached files that cause micro-stutters.
