@@ -103,6 +103,8 @@ namespace AmazingMemoryFixer
         private Panel icqPanel;
         private Timer icqTimer;
         private bool icqPlaying = false;
+        private Button btnGithubIcq;
+        private Button btnDonateIcq;
 
         [DllImport("winmm.dll")]
         private static extern long mciSendString(string strCommand, System.Text.StringBuilder strReturn, int iReturnLength, IntPtr hwndCallback);
@@ -560,7 +562,16 @@ namespace AmazingMemoryFixer
         {
             icqPanel = new Panel { Dock = DockStyle.Fill, Visible = false };
             typeof(Panel).InvokeMember("DoubleBuffered", BindingFlags.SetProperty | BindingFlags.Instance | BindingFlags.NonPublic, null, icqPanel, new object[] { true });
-            
+
+            btnGithubIcq = new Button { Text = "GitHub", Size = new Size(85, 24), Location = new Point(30, 360), BackColor = Color.FromArgb(230, 230, 230), FlatStyle = FlatStyle.Standard, Font = new Font("Arial", 8) };
+            btnGithubIcq.Click += (s, e) => { try { Process.Start("https://github.com/Adiru3/AmazeMem"); } catch { } };
+
+            btnDonateIcq = new Button { Text = "Donate", Size = new Size(85, 24), Location = new Point(125, 360), BackColor = Color.FromArgb(230, 230, 230), FlatStyle = FlatStyle.Standard, Font = new Font("Arial", 8) };
+            btnDonateIcq.Click += (s, e) => { try { Process.Start("https://adiru3.github.io/Donate/"); } catch { } };
+
+            icqPanel.Controls.Add(btnGithubIcq);
+            icqPanel.Controls.Add(btnDonateIcq);
+
             icqTimer = new Timer { Interval = 100 };
             icqTimer.Tick += (s, e) => {
                 // Future animation frame tick
